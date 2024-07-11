@@ -7,7 +7,7 @@
 ![image](../reactEntrega2/src/assets/GlobalEnttSite.gif)
 
 #### Deploy
-
+[globalEntt](https://react-final-eight-sigma.vercel.app/)
 
 #### Description
 Ecommerce for the GlobalEntt store, which allows to show the available products in the PLP menu and then go to a PDP module and then add to the cart and finalize the purchase, giving the customer an Id of the completed order.
