@@ -1,11 +1,12 @@
 import { Flex } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getProductById, getProducts } from '../../data/asyncMock'
 import { DotLoader } from 'react-spinners'
 import ItemDetail from '../ItemDetail/ItemDetail'
 import { getDoc,doc } from 'firebase/firestore'
 import { db } from '../../config/firebase'
+import Context from '../../context/CartContext'
 
 
 const ItemDetailContainer = () => {
@@ -14,6 +15,7 @@ const ItemDetailContainer = () => {
     const {productId}= useParams()
    
     const navigate = useNavigate()
+    const {currentQuantity}= useContext(Context)
 
     useEffect(()=>{
       
@@ -44,7 +46,7 @@ const ItemDetailContainer = () => {
             <DotLoader color="#111312" />
         </Flex>
         :
-        <ItemDetail {...producto}/>
+        <ItemDetail {...producto} currentQuantity={currentQuantity(productId)}/>
       }
       
     </>

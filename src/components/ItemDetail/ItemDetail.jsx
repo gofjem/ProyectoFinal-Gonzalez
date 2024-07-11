@@ -5,15 +5,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import Context from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 
-const ItemDetail = ({img,nombre,precio,stock,descripcion,id,categoria}) => {
+const ItemDetail = ({img,nombre,precio,stock,descripcion,id,categoria,currentQuantity}) => {
   const [cantidad,setCantidad]=useState(0)
   const {addItem}=useContext(Context)
+  const maxAvailable = stock - currentQuantity
 
   const onAdd=(quantity)=>{
     const item={
       id,
       nombre,
-      precio
+      precio,
+      stock
     }
       addItem(item,quantity)
       toast(`Agregaste ${quantity} Producto(s) al carro`)
@@ -46,6 +48,7 @@ const ItemDetail = ({img,nombre,precio,stock,descripcion,id,categoria}) => {
         </Flex>
         <Text fontWeight='bold' fontSize='3xl' mt={3} textAlign={'center'}>$ {precio}</Text>
         <Text fontSize='xl' textAlign={'center'} mt={1}  >Stock Disponible: {stock}</Text>
+        <Text fontSize='xl' textAlign={'center'} mt={1}  >Cantidad en carrito: {currentQuantity}</Text>
     </CardBody>
 
     <CardFooter w={'100%'} p={0}>
@@ -77,7 +80,7 @@ const ItemDetail = ({img,nombre,precio,stock,descripcion,id,categoria}) => {
 
         </Flex>
           :
-            <ItemCount stock={stock} valorInicial={1} onAdd={onAdd}/>
+            <ItemCount stock={stock} valorInicial={1} onAdd={onAdd} maxAvailable={maxAvailable}/>
         }
     </CardFooter>
     <ToastContainer/>  

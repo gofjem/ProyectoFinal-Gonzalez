@@ -50,6 +50,33 @@ export const CartContextProvider = ({children}) => {
         return cart.reduce((acc,item)=> acc + item.quantity, 0)
     }
 
+    const itemDecrement = (id) => {
+        const cartUpdate = cart.map((prod) => {
+            if (prod.id === id ){
+                const newQuantity = Math.max(prod.quantity - 1, 1)
+                return {...prod, quantity: newQuantity}
+            }
+        })
+
+        setCart(cartUpdate)
+    }
+
+    const itemIncrease = (id,stock) => {
+        const cartUpdate = cart.map((prod) => {
+            if (prod.id === id ){
+                const newQuantity = Math.min(prod.quantity + 1, stock)
+                return {...prod, quantity: newQuantity}
+            }
+        })
+
+        setCart(cartUpdate)
+    }
+
+    const currentQuantity = (id)=>{
+        const prod = cart.find((item)=> item.id === id)
+        return prod ? prod.quantity : 0
+    }
+
     console.log(cart)
   return (
     <Context.Provider
@@ -60,7 +87,10 @@ export const CartContextProvider = ({children}) => {
             removeItem,
             clearCart,
             getTotal,
-            getQuantity
+            getQuantity,
+            itemDecrement,
+            itemIncrease,
+            currentQuantity
         }}>
             {children}
 
